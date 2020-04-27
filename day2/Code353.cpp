@@ -16,7 +16,7 @@ using namespace std;
 void findValue(int value){
     int find[]={-36,-25,0,12,14,29,35,47,76,100},length;
     int position=-1,times=1;//position用于记录value位于第几个数,times记录查找的次数
-    length= sizeof(find)/ sizeof(int);
+    length= sizeof(find)/ sizeof(int);//注意求数组的长度的方法
     for (int i = 0; i < length ; i++) {
         if (value==find[i]){//找到了value的位置
             position=i+1;
