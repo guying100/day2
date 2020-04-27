@@ -13,22 +13,26 @@
 //若y不等于d则身份证号码不正确
 //        输出格式：应为:aaaaaabbbbbbbbcccy
 
-#include <stdio.h>
-int main(){
-  char certify[]="52242619811105565x";
-  char y[]="10x98765432";
-  int w[]={7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2},weight=0;
-    for (int i = 0; i <17 ; i++) {
-        int data=(int)certify[i]-'0';//将字符串中的值转为数字
-        weight=weight+w[i]*data;
-    }
-    int value=weight%11;
-    if(y[value]==certify[17]){
-        printf("%s",certify);
-        printf("%s","  正确");
-    }else{
-        printf("%s",certify);
-        printf("%s","  不正确");
-    }
-    return 0;
-}
+//#include <stdio.h>
+//int main(){
+//  char certify[]="52242619811105565x";
+//  char y[]="10x98765432";
+//  int w[]={7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2},weight=0;
+//    if(sizeof(certify)!=19){//为什么是19呢？'\0'字符串结尾符占一个字节
+//      printf("%s",certify);
+//      printf("%s","  不正确");
+//    }
+//    for (int i = 0; i <17 ; i++) {
+//        int data=(int)certify[i]-'0';//将字符串中的值转为数字
+//        weight=weight+w[i]*data;
+//    }
+//    int value=weight%11;
+//    if(y[value]==certify[17]){
+//        printf("%s",certify);
+//        printf("%s","  正确");
+//    }else{
+//        printf("%s",certify);
+//        printf("%s","  不正确");
+//    }
+//    return 0;
+//}
