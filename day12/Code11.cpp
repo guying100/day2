@@ -12,7 +12,7 @@ a) 描述算法思想
  * 首先创建一个与原数组长度一样的dp数组用于存放子数组长度
  * 利用for循环遍历原数组，判断数组中相邻元素是否相同，若相等，
  * 设置dp数组默认值，子数组长度加一；若不相等，则表示出现元素
- * 重复相等现象停止，将子数组长度存入dp数组中。最后遍历dp数组
+ * 重复相等现象停止，判断重复元素的和是否与target相等，将子数组长度存入dp数组中。最后遍历dp数组
  * 找出子数组长度的最大值即为所求。
  */
 //b)伪代码实现
@@ -35,15 +35,23 @@ a) 描述算法思想
  * @param numsSize 所求数组的长度
  * @return
  */
-int getRepeat(int *nums,int numsSize){
-    int dp[numsSize],count=0;//dp数据用于记录子数组的长度
+#include <iostream>
+int getRepeat(int *nums,int numsSize,int target){
+    int dp[numsSize],count=0,sum=0;//dp数据用于记录子数组的长度
     //遍历nums的数组的每一个数字
     for (int i = 0; i <numsSize ; i++) {
         if(nums[i]==nums[i+1]){//如果两个数字相等
            count++;//子数组的长度加一
-           dp[i]=1;//不存入子数组的长度，设为默认值1
+           dp[i]=0;//不存入子数组的长度，设为默认值1
+           sum=sum+nums[i];
         }else{
-            dp[i]=count+1;//遇到不相同的情况，将子数组长度存入dp数组中
+            sum=sum+nums[i];
+            if(sum==target){//判断和相等的问题
+                dp[i]=count+1;//遇到不相同的情况，将子数组长度存入dp数组中
+            }else{
+                dp[i]=0;
+            }
+            sum=0;
             count=0;//将count数组的值设为0
         }
     }
@@ -54,11 +62,12 @@ int getRepeat(int *nums,int numsSize){
             max=dp[j];
         }
     }
+    printf("%d",max);
     return max;
 }
 int main(){
-    int nums[]={1,1,2,1,1,1,2,1};
-    getRepeat(nums,8);//函数调用
+    int nums[]={1,1,2,1,1,1,2,1},target=3;
+    getRepeat(nums,8,target);//函数调用
     return 0;
 }
 
