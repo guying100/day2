@@ -43,6 +43,9 @@ int getRepeat(int *nums,int numsSize,int target){
         if(nums[i]==nums[i+1]){//如果两个数字相等
            count++;//子数组的长度加一
            sum=sum+nums[i];
+            if(sum==target && count+1>max){//判断和相等的问题
+                max=count;//遇到不相同的情况，将子数组长度
+            }
         }else{
             sum=sum+nums[i];
             if(sum==target && count+1>max){//判断和相等的问题
@@ -57,7 +60,7 @@ int getRepeat(int *nums,int numsSize,int target){
     return max;
 }
 int main(){
-    int nums[]={1,1,2,5,5,5,5,1},target=20;
+    int nums[]={1,1,2,5,5,5,5,1},target=10;
     getRepeat(nums,8,target);//函数调用
     return 0;
 }
