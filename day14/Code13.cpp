@@ -25,31 +25,39 @@ void print(LinkList C){
     }
 }
 void Delete(LinkList A,LinkList B){
-    if (B->data==NULL){
+    if (B->next->data==NULL){
         printf("%s","有序表B为空表，没有要删除的元素");
         return;
     }
-    while (B!= nullptr){
-        if(A->next->data==B->data){
+    bool flag= false;//标记A是否移动
+    while (B->next!= NULL){
+        if(A->next->data==B->next->data){
             //删除A中元素
             A->next=A->next->next;
             //B中指针后移
             B=B->next;
+        }else{
+            A=A->next;
+            flag=true;
         }
-        printf("%d\n",A->data);
+    }
+    //如果A没有移动过，还停留头节点中，将A向后移动一位；
+    if (!flag){
+        A=A->next;
     }
     printf("%s\n","删除后");
     print(A);
 }
-int main(){
-    //测试数据
-    LNode l1,l2,l3,l4,l5;
-    l1.data=4;l1.next=&l2;
-    l2.data=5;l2.next=&l3;
-    l3.data=6;l3.next=NULL;
-    l4.data=5;l4.next=&l5;
-    l5.data=6;l5.next=NULL;
-    LinkList A=&l1,B=&l4;
-    Delete(A,B);
-    return 0;
-}
+//int main(){
+//    //测试数据
+//    LNode l1,l2,l3,l4,l5,headA,headB;
+//    headA.next=&l1;headB.next=&l4;
+//    l1.data=2;l1.next=&l2;
+//    l2.data=6;l2.next=&l3;
+//    l3.data=7;l3.next=NULL;
+//    l4.data=6;l4.next=&l5;
+//    l5.data=7;l5.next=NULL;
+//    LinkList A=&headA,B=&headB;
+//    Delete(A,B);
+//    return 0;
+//}
