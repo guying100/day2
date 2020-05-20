@@ -11,33 +11,33 @@ struct ListNode {
 };
 struct ListNode* reverseKGroup(struct ListNode* head, int k){
     struct ListNode* p=head;
-    struct ListNode* q=head;
     int nums[10000];
-    int count=0,m=0;
-    //将链表中的值赋给一个数组中存储
-    while (head!= NULL){
-        nums[count]=head->val;
-        count++;
-        head=head->next;
-
+    int count=0;
+    //1.将链表转化为数组
+    while(p!=NULL){
+        nums[count++]=p->val;
+        p=p->next;
     }
-    //确定可以分为几个小的链表组
-    m=count%k==0?count/k:count/k+1;
-    //循环
-    for (int i = 0; i <m ; i++) {
-        int index=0;
-        //判断是否是最后一个链表组，如果说是最后一个的话改变index的值即第二次循环的次数
-        if(count%k!=0 && (i+1)==(count/k+1)){
-            index=count-(i+1)*k;
-        } else{
-            index=k;
-        }
-        //第二次循环，在每个链表组中，设置其值
-        for (int j = 0; j <index; j++) {
-            //找规律发现有这样的翻转的规律
-            p->val=nums[(i+1)*k-j-1];
-            p=p->next;
+    //2.进行反转
+    int m,n,temp;
+    for(int i=0;i<count/k;i++){
+        m=i*k;
+        n=(i+1)*k-1;
+        while(m<n){
+            temp=nums[m];
+            nums[m]=nums[n];
+            nums[n]=temp;
+            m++,n--;
         }
     }
-    return q;
+    //3.将数组转化为链表
+    struct  ListNode dummy;
+    p=&dummy;
+    for(int i=0;i<count;i++){
+        p->next=(struct ListNode*)malloc(sizeof(struct ListNode));
+        p->next->val=nums[i];
+        p=p->next;
+    }
+    p->next=NULL;
+    return dummy.next;
 }
